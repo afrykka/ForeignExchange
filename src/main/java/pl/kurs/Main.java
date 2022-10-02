@@ -1,6 +1,7 @@
 package pl.kurs;
 
-import service.ExchangeService;
+import interfaces.ExchangeService;
+import service.ExchangeServiceImpl;
 
 import java.io.IOException;
 
@@ -21,9 +22,11 @@ public class Main {
             Praca domowa po zajeciach ze springa i htmla: dorzuc wpisywanie danych przez przeglądarke
          */
 
-        System.out.println(ExchangeService.readObjectFromApi());
+        //ExchangeService.readFromApi();
 
-        System.out.println(ExchangeService.getValue("usd"));
+        ExchangeService exchangeService = new ExchangeServiceImpl();
+        System.out.println(exchangeService.getValue("aoA"));
+        System.out.println(exchangeService.processExchange(5, "aoa"));
 
     }
 }

@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 public class ExchangeServiceImpl implements ExchangeService {
 
@@ -28,7 +27,7 @@ public class ExchangeServiceImpl implements ExchangeService {
         System.out.println(readValuesFromApi.entrySet().stream()
                 .filter(entry -> entry.getKey().equals(RESULTS))
                 .map(entry -> (Map<String, Double>) entry.getValue())
-                        .findFirst()
+                .findFirst()
                 .orElseThrow(NoSuchElementException::new)
                 .size());
 

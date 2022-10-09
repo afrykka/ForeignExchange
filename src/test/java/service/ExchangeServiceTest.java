@@ -16,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 public class ExchangeServiceTest {
 
     private static final String RESULTS = "results";
+    private static final String BASE = "base";
     private static final String API_LINK = "https://api.fastforex.io/fetch-all?from=USD&api_key=a84da8e85a-89aa6fbae3-qvz62g";
 
     private ObjectMapper mapper;
@@ -41,7 +42,7 @@ public class ExchangeServiceTest {
     public void shouldReturnCorrectAmountOfCurrenciesInJson() {
         //when
         int currenciesSize = readValuesFromApi.entrySet().stream()
-                .filter(entry -> entry.getKey().equals(RESULTS))
+                .filter(entry -> RESULTS.equals(entry.getKey()))
                 .map(entry -> (Map<String, Double>) entry.getValue())
                 .findFirst()
                 .orElseThrow(NoSuchElementException::new)
@@ -49,6 +50,19 @@ public class ExchangeServiceTest {
 
         //then
         assertEquals(150, currenciesSize);
+    }
+
+    @Test
+    public void shouldReturnCorrectCurrencyBase() {
+        //when
+        String base = readValuesFromApi.entrySet().stream()
+                .filter(entry -> BASE.equals(entry.getKey()))
+                .map(entry -> (String) entry.getValue())
+                .findFirst()
+                .orElseThrow(NoSuchElementException::new);
+
+        //then
+        assertEquals("USD", base);
     }
 
 }
